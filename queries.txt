@@ -1,0 +1,17 @@
+SELECT o.order_number, COUNT(op.product_id) AS products_amount 
+FROM `orders_products` op 
+JOIN orders o ON o.id = op.order_id 
+GROUP BY op.order_id
+
+SELECT o.order_number, COUNT(op.product_id) AS products_amount 
+FROM `orders_products` op 
+JOIN orders o ON o.id = op.order_id 
+GROUP BY op.order_id 
+HAVING products_amount > 10
+
+SELECT o.order_number
+FROM `orders_products` op1 
+JOIN `orders_products` op2 ON op1.product_id=op2.product_id AND op1.order_id<op2.order_id
+JOIN orders o ON op1.order_id = o.id
+GROUP BY op1.order_id, op2.order_id
+ORDER BY count(*) DESC LIMIT 2
